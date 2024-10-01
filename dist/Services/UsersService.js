@@ -27,9 +27,9 @@ class UserService {
                 const _token = jsonwebtoken_1.default.sign(payload, process.env.JWT_SECRET, { expiresIn: '10m' });
                 return {
                     err: false,
-                    status: 200,
+                    status: 201,
                     message: "User logged in successfully",
-                    data: { token: _token, status: 200, message: "User created successfully", err: false }
+                    data: { token: _token }
                 };
             }
         }
