@@ -19,5 +19,5 @@ app.use('/public', express_1.default.static(path_1.default.join(__dirname, 'publ
 //     res.sendFile(path.join(__dirname, 'public'))
 // })
 app.listen(process.env.PORT, () => {
-    console.log(`Server started on port ${process.env.PORT}`);
+    console.log(`Server started on localhost:${process.env.PORT}`);
 });

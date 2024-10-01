@@ -8,28 +8,24 @@ submitBtn.addEventListener('click', async (e) => {
         username: username.value,
         password: password.value
     };
-    // קריאה לפונקציה ששולחת את הנתונים ל-API
     try {
         const response = await sendLoginData(userData);
-        alert('התחברות מוצלחת!');
+        alert('התחברות מוצלחת');
     }
     catch (error) {
-        alert('אירעה שגיאה בזמן ההתחברות.');
+        alert('אירעה שגיאה בזמן ההתחברות');
     }
 });
-// פונקציה לשליחת הנתונים ל-API
 async function sendLoginData(userData) {
-    const response = await fetch('https://localhost:3000/auth/login', {
+    const response = await fetch('http://localhost:3000/auth/login', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify(userData)
     });
-    // בדיקה אם התגובה מהשרת תקינה
     if (!response.ok) {
         throw new Error('Network response was not ok');
     }
-    // קבלת הנתונים מהשרת
     return await response.json();
 }
