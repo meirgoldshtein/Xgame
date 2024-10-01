@@ -3,6 +3,7 @@ import SignupDto from '../Types/dto/signupDto';
 import UserService from '../Services/UsersService';
 import ResponseData from '../Types/dto/ResponseData';
 import RequestWithUserDTO from '../Types/dto/RequestWithUserDTO';
+
 export const handelSignupRequest = async (req: Request<{}, {}, SignupDto>, res: Response) : Promise<void> => {
     try {
         const resault = await UserService.signup(req.body); 

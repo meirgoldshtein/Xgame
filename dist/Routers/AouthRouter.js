@@ -8,6 +8,7 @@ const AuthService_1 = __importDefault(require("../Services/AuthService"));
 const handelLoginRequest = async (req, res) => {
     var _a;
     try {
+        console.log("new login");
         const resault = await AuthService_1.default.login(req.body);
         const token = (_a = resault.data) === null || _a === void 0 ? void 0 : _a.token;
         res.cookie('token', token).status(resault.status || 200).json(resault);

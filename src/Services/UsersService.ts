@@ -2,7 +2,8 @@ import e from "express";
 import ResponseData from "../Types/dto/ResponseData";
 import SignupDto from "../Types/dto/signupDto";
 import User from "../Types/models/User";
-import { users } from "../Data/data";
+
+import {getFileData , writeFileData} from "../DAL/fileDAL";
 
 export default class UserService {
 
@@ -16,9 +17,11 @@ export default class UserService {
                     message: "Missing mandatory fields: username and password are required"
                 }
             } else {
-                const newUser = new User(username);
+                const newUser: User = new User(username);
                 await newUser.hashPassword(password);
-                users.push(newUser);
+                let users = await getFileData<User>('users');
+                users? users.push(newUser) : users = [newUser];
+                await writeFileData('users', users);
                 return {
                     err: false,
                     status: 201,
@@ -35,11 +38,13 @@ export default class UserService {
         }
     }
 
-    public static  getAllUsers(): User[] {
-        return users
+    public static async getAllUsers(): Promise<User[]> {
+        const users = await getFileData<User>('users');
+        return users? users : [];
     }
 
-    public static  getUserById(id: string): User | undefined {
-        return users.find(user => user.id === id)
+    public static async getUserById(id: string):Promise<User | undefined> {
+        const users = await getFileData<User>('users');
+        return users? users.find(user => user.id === id) : undefined
     }
 }
