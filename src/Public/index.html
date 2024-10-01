@@ -1,11 +1,27 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="he">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Login & Register</title>
+    <link rel="stylesheet" href="./CSS/styles.css">
+    <script src="../../dist/src/"></script>
 </head>
 <body>
-    <h1>Hello World</h1>
+    <div class="container">
+        <div class="form-box">
+            <h1 id="form-title">התחברות</h1>
+            <form id="login-register-form">
+                <div class="input-group">
+                    <input type="text" id="username" placeholder="שם משתמש" required>
+                </div>
+                <div class="input-group">
+                    <input type="password" id="password" placeholder="סיסמה" required>
+                </div>
+                <button type="submit" class="submit-btn">התחבר</button>
+                <p id="switch-text">אין לך חשבון? <a href="#" id="switch-link">הרשמה</a></p>
+            </form>
+        </div>
+    </div>
 </body>
 </html>
