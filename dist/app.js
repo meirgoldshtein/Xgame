@@ -7,11 +7,13 @@ const express_1 = __importDefault(require("express"));
 require("dotenv/config");
 const cookie_parser_1 = __importDefault(require("cookie-parser"));
 const AuthController_1 = __importDefault(require("./Controllers/AuthController"));
+const UsersController_1 = __importDefault(require("./Controllers/UsersController"));
 const path_1 = __importDefault(require("path"));
 const app = (0, express_1.default)();
 app.use(express_1.default.json());
 app.use((0, cookie_parser_1.default)());
 app.use('/auth', AuthController_1.default);
+app.use('/users', UsersController_1.default);
 console.log(`${__dirname}`);
 console.log(path_1.default.join(__dirname, 'public'));
 app.use('/public', express_1.default.static(path_1.default.join(__dirname, 'public')));
@@ -19,5 +21,5 @@ app.use('/public', express_1.default.static(path_1.default.join(__dirname, 'publ
 //     res.sendFile(path.join(__dirname, 'public'))
 // })
 app.listen(process.env.PORT, () => {
-    console.log(`Server started on port ${process.env.PORT}`);
+    console.log(`Server started on localhost:${process.env.PORT}`);
 });

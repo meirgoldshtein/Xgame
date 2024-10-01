@@ -2,7 +2,9 @@
 const username = document.getElementById('username');
 const password = document.getElementById('password');
 const submitBtn = document.querySelector('.submit-btn');
+console.log("111")
 submitBtn.addEventListener('click', async (e) => {
+    console.log("222")
     e.preventDefault();
     const userData = {
         username: username.value,
@@ -19,7 +21,7 @@ submitBtn.addEventListener('click', async (e) => {
 });
 // פונקציה לשליחת הנתונים ל-API
 async function sendLoginData(userData) {
-    const response = await fetch('https://localhost:3000/auth/login', {
+    const response = await fetch('http://localhost:3000/users/signup', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'

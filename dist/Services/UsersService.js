@@ -4,7 +4,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const User_1 = __importDefault(require("../Types/models/User"));
-const data_1 = require("../Data/data");
+const fileDAL_1 = require("../DAL/fileDAL");
 class UserService {
     static async signup(user) {
         try {
@@ -19,7 +19,9 @@ class UserService {
             else {
                 const newUser = new User_1.default(username);
                 await newUser.hashPassword(password);
-                data_1.users.push(newUser);
+                let users = await (0, fileDAL_1.getFileData)('users');
+                users ? users.push(newUser) : users = [newUser];
+                await (0, fileDAL_1.writeFileData)('users', users);
                 return {
                     err: false,
                     status: 201,
@@ -36,11 +38,13 @@ class UserService {
             };
         }
     }
-    static getAllUsers() {
-        return data_1.users;
+    static async getAllUsers() {
+        const users = await (0, fileDAL_1.getFileData)('users');
+        return users ? users : [];
     }
-    static getUserById(id) {
-        return data_1.users.find(user => user.id === id);
+    static async getUserById(id) {
+        const users = await (0, fileDAL_1.getFileData)('users');
+        return users ? users.find(user => user.id === id) : undefined;
     }
 }
 exports.default = UserService;
