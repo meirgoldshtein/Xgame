@@ -4,6 +4,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const User_1 = __importDefault(require("../Types/models/User"));
+const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const fileDAL_1 = require("../DAL/fileDAL");
 class UserService {
     static async signup(user) {
@@ -22,11 +23,13 @@ class UserService {
                 let users = await (0, fileDAL_1.getFileData)('users');
                 users ? users.push(newUser) : users = [newUser];
                 await (0, fileDAL_1.writeFileData)('users', users);
+                const payload = { id: newUser.id, username: newUser.username };
+                const _token = jsonwebtoken_1.default.sign(payload, process.env.JWT_SECRET, { expiresIn: '10m' });
                 return {
                     err: false,
-                    status: 201,
-                    message: "User created successfully",
-                    data: { id: newUser.id, username: newUser.username }
+                    status: 200,
+                    message: "User logged in successfully",
+                    data: { token: _token, status: 200, message: "User created successfully", err: false }
                 };
             }
         }
