@@ -17,7 +17,11 @@ submitBtn.addEventListener('click', async (e) => {
     }
 });
 async function sendLoginData(userData) {
+<<<<<<< Updated upstream
     const response = await fetch('http://localhost:3000/users/signup', {
+=======
+    const response = await fetch('http://localhost:3000/auth/login', {
+>>>>>>> Stashed changes
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -27,7 +31,11 @@ async function sendLoginData(userData) {
     if (!response.ok) {
         throw new Error('Network response was not ok');
     }
+<<<<<<< Updated upstream
     const data = await response.json();
     console.log(data);
     return data;
+=======
+    return await response.json();
+>>>>>>> Stashed changes
 }
