@@ -2,6 +2,8 @@ import e from "express";
 import ResponseData from "../Types/dto/ResponseData";
 import SignupDto from "../Types/dto/signupDto";
 import User from "../Types/models/User";
+import TokenPayloadDTO from "../Types/dto/TokenPayloadDTO";
+import jwt from "jsonwebtoken";
 
 import {getFileData , writeFileData} from "../DAL/fileDAL";
 
@@ -22,12 +24,15 @@ export default class UserService {
                 let users = await getFileData<User>('users');
                 users? users.push(newUser) : users = [newUser];
                 await writeFileData('users', users);
+                const payload: TokenPayloadDTO = { id: newUser.id, username: newUser.username }
+                const _token = jwt.sign(payload, process.env.JWT_SECRET as string, { expiresIn: '10m' })
                 return {
                     err: false,
-                    status: 201,
-                    message: "User created successfully",
-                    data: {id: newUser.id, username: newUser.username}
+                    status: 200,
+                    message: "User logged in successfully",
+                    data:{ token : _token , status: 200 , message: "User created successfully", err: false }
                 }
+
             }
         } catch (error) {
             return {
