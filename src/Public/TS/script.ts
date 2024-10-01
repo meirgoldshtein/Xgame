@@ -20,3 +20,4 @@ switchLink.addEventListener('click', (e: MouseEvent) => {
     
     isLogin = !isLogin;
 });
+
